@@ -25,6 +25,7 @@ body {
 
 
 .b-left-arrow, .b-right-arrow {
+	display: none;
 	position: absolute;
 	top:50%;
 	width: 88px;
