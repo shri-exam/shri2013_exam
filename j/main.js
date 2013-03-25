@@ -3,7 +3,7 @@
 //Init variables
 var url = 'http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?';
 var id = 0, image ='';
-var $slideshow = $('.b-slideshow'); 
+var $slideshow = $('.b-slideshow'), $left_arrow = $('.b-left-arrow'), $right_arrow = $('.b-right-arrow');
 $slideshow.html('<img class="b-slideshow__image" src="" alt="" />');
 var $slideshowImg = $('.b-slideshow__image');
 
@@ -57,14 +57,16 @@ $(window).resize(function(){
 })
 .mouseenter(function(){
     var id = $slideshowImg.attr("data-photo-id");
-    if(id > 0) {
-      $('.b-left-arrow').show();
-    }
-    $('.b-right-arrow').show();
+    if(id > 0)  showbutton($left_arrow);
+    showbutton($right_arrow);
 })
 .mouseleave(function(){
-    $('.b-left-arrow').hide();
-    $('.b-right-arrow').hide();
+    $left_arrow.hide();
+    $right_arrow.hide();
 });
+
+function showbutton(obj) {
+    obj.show();
+};
 
 })(jQuery);

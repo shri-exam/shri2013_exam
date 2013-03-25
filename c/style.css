@@ -30,7 +30,8 @@ body {
 	top:50%;
 	width: 88px;
 	height: 88px;
-	border: 4px solid rgba(255, 255, 255, 0.4);
+	border: 4px solid;
+	border-color: rgba(255, 255, 255, 0.4);
 	border-radius: 88px;
 }
 
