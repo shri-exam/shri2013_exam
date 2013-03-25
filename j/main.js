@@ -19,6 +19,11 @@ $.getJSON(url, function(root){
       $('.b-gallery').append(inner);
   });
 
+$slideshowImg.click(function() {
+      var id = $slideshowImg.attr("data-photo-id");
+      loadImg(++id,"XL");
+  });
+
 
 //Загружаем изображение по id    
 function loadImg(id,size) {
@@ -31,5 +36,8 @@ function loadImg(id,size) {
     }).attr({'src': src, 'data-photo-id': id, 'alt': alt});
     return dfd.promise();
 };
+
+
+
 
 })(jQuery);
