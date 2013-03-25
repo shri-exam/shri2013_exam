@@ -1,18 +1,26 @@
 (function($) {
 var url = 'http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?';
+var id = 1, image ='';
+var $lightbox = $('#lightBox');
+$lightbox.html('<img src="" alt="" />');
+
 $.getJSON(url, function(root){
-		var entries=root.entries; // весь JSON в этой переменной
-//		$.each(entries, function(i) {
-			var src = entries[3].img.XL.href;
-			loadImg(src);
-//		});
-       function loadImg(src) {
-          var dfd = $.Deferred();
-          $('#lightBox').html('<img alt="" />');
-          $('#lightBox>img').load(function () {
-             dfd.resolve();
-          }).attr('src', src);
-          return dfd.promise();
-        }
-	});
+		  image = root.entries;
+  }).done(function() {
+    loadImg(id,'XL');
+});
+
+
+//Загружаем изображение по id    
+function loadImg(id,size) {
+    var dfd = $.Deferred();
+    var src = image[id].img[size].href;
+    var alt = image[id].title;
+
+    $lightbox.find('img').load(function () {
+        dfd.resolve();
+    }).attr({'src': src, 'data-photo-id': id, 'alt': alt});
+    return dfd.promise();
+};
+
 })(jQuery);
