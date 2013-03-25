@@ -11,7 +11,13 @@ $.getJSON(url, function(root){
 		  image = root.entries;
   }).done(function() {
     loadImg(id,'XL');
-});
+
+    var inner = '';
+      $.each(image,function (i, val) {
+          inner += '<img src="' + image[i].img.XXS.href + '" alt="" />';
+      });
+      $('.b-gallery').append(inner);
+  });
 
 
 //Загружаем изображение по id    

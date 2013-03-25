@@ -1,0 +1,24 @@
+body {
+	background-color: #000;
+}
+
+.b-slideshow {
+	position: absolute;
+}
+
+.b-gallery {
+	position: absolute;
+	bottom: 30px;
+	overflow: hidden;
+	height: 75px;
+}
+
+.b-gallery>img {
+	display: inline-block;
+	margin-right: 12px;
+	padding: 7px; 
+}
+
+.b-gallery>img:hover {
+	border: 3px solid #149eaf;
+}
