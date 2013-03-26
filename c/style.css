@@ -8,27 +8,30 @@ body {
 
 .b-gallery {
 	position: absolute;
+	display: none;
 	bottom: 30px;
 	overflow: hidden;
-	height: 75px;
+	height: 95px;
 	background-color: rgba(128, 128 , 128, 0.2);
 }
 
-.b-gallery>img {
+.b-gallery__image {
 	display: inline-block;
 	margin-right: 12px;
-	padding: 7px; 
+	padding: 7px;
+	height: 75px;
+	width: 75px;
 }
 
-.b-gallery>img:hover {
+.b-gallery__image_active {
 	border: 3px solid #149eaf;
 }
 
 
 .b-left-arrow, .b-right-arrow {
-	display: none;
 	position: absolute;
 	top:50%;
+	display: none;
 	width: 88px;
 	height: 88px;
 	border: 4px solid;
@@ -67,8 +70,8 @@ body {
 }
 
 .b-right-arrow__bottom_corner {
-	bottom: 25px;
 	right: 23px;
+	bottom: 25px;
 }
 
 .rotate-cw {
