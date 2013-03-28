@@ -8,7 +8,6 @@
       var $slideshow = $('.b-slideshow'), $gallery = $('.b-gallery'), $gallery_wrapper = $('.b-gallery__wrapper');
       var $left_arrow = $('.b-left-arrow'), $right_arrow = $('.b-right-arrow');
       var $last_image = '';
-      $slideshow.html('<img class="b-slideshow__image" src="" alt="" />');
       var $slideshow_image = $('.b-slideshow__image');
 
 //Yandex API
@@ -33,14 +32,16 @@
             var src = image[id].img[size].href;
             var alt = image[id].title;
 
-            $slideshow_image.load(src, function () {
-                  dfd.resolve();
-                  resizeimage();
-            })
-            .attr({'src': src, 'data-photo-id': id, 'alt': alt});
-                  $last_image = $('.b-gallery__image').eq(id);
-                  $last_image.addClass('b-gallery__image_active');
-                  return dfd.promise();
+            var container = '<img class="b-slideshow__image" src="' + src + '" alt="' + alt + 'data-photo-id="'+ id + '/>';
+
+            container.load(function () {
+                dfd.resolve();
+                $slideshow.html(container);
+                resizeimage();
+            });
+                $last_image = $('.b-gallery__image').eq(id);
+                $last_image.addClass('b-gallery__image_active');
+                return dfd.promise();
       };
 
 //масштабируем под размеры viewport и центруем
@@ -57,19 +58,20 @@
       };
 //
       function calcImageSize(size_suffix, screen_height) {
-          size = $.grep(size_suffix, function(el,idx) {
-            if(size_suffix[el] < screen_height) return true;
-            else return false
-          });
-          console.log(size);
+            size = $.grep(size_suffix, function(el,idx){
+                if(size_suffix[el] < screen_height) return true;
+                else return false
+            });
+            console.log(size);
       };
 
       $.extend($.easing,
       {
-          def: 'swing',
-          easeOutCubic: function (x, t, b, c, d) {
-              return c*((t=t/d-1)*t*t + 1) + b;
-          }
+            def: 'swing',
+            easeOutCubic: function (x, t, b, c, d) {
+                return c*((t=t/d-1)*t*t + 1) + b;
+            }
+
       });
 
 //Обработчики событий
