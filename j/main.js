@@ -7,8 +7,7 @@
       var size_suffix = {'XL': '800', 'L': '500', 'M':'300', 'S':'150', 'XS': '100', 'XXS': '75', 'XXXS': '50'};
       var $slideshow = $('.b-slideshow'), $gallery = $('.b-gallery'), $gallery_wrapper = $('.b-gallery__wrapper');
       var $left_arrow = $('.b-left-arrow'), $right_arrow = $('.b-right-arrow');
-      var $last_image = '';
-      var $slideshow_image = $('.b-slideshow__image');
+      var $last_image = '', $slideshow_image = '';
 
 //Yandex API
       function loadGallery(url) {
@@ -31,12 +30,13 @@
             var dfd = $.Deferred();
             var src = image[id].img[size].href;
             var alt = image[id].title;
-
             var container = '<img class="b-slideshow__image" src="' + src + '" alt="' + alt + 'data-photo-id="'+ id + '/>';
+            $slideshow.hide().html(container);
+            $slideshow_image = $('.b-slideshow__image');
 
-            container.load(function () {
+            $('.b-slideshow__image').load(function () {
                 dfd.resolve();
-                $slideshow.html(container);
+                $slideshow.show();
                 resizeimage();
             });
                 $last_image = $('.b-gallery__image').eq(id);
@@ -48,8 +48,8 @@
       function resizeimage() {
             var vp_height = $(window).height(), vp_width  = $(window).width();
             var zoom_height =  vp_height - 300;
-            var zoom_width = $slideshow_image.width() > vp_width  ? vp_width : $slideshow_image.width();
             $slideshow_image.attr({'height':zoom_height});
+            var zoom_width = $slideshow_image.width() > vp_width  ? vp_width : $slideshow_image.width();
             $slideshow.css({'top': (vp_height - zoom_height)/2 +'px', 'left': (vp_width - zoom_width)/2 +'px'});
       }
 //

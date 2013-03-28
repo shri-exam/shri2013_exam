@@ -4,6 +4,7 @@ body {
 
 .b-slideshow {
 	position: absolute;
+	display: none;
 }
 
 .b-slideshow__image {
