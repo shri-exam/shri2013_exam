@@ -14,29 +14,36 @@ body {
 .b-gallery {
 	position: absolute;
 	bottom: 20px;
-	left: 0px;
-	display: block;
+	left: 0;
+	display: none;
 	overflow: hidden;
 	width: 100%;
-	height: 95px;
+	height: 93px;
 	background-color: rgba(128, 128, 128, 0.2);
 	}
 
 .b-gallery__wrapper {
 	position: absolute;
+	left: 0;
 	display: block;
 	overflow: hidden;
 	width: 5200px;
-	height: 95px;
-	left: 0;
+	height: 93px;
+}
+
+.b-gallery__wrapper>a {
+	display: inline-block;
+	width: 96px;
+	outline: none;
+	text-align: center;
 }
 
 .b-gallery__image {
 	display: inline-block;
-	margin-right: 12px;
-	padding: 7px;
+	padding: 6px;
 	width: 75px;
 	height: 75px;
+	vertical-align: middle;
 }
 
 .b-gallery__image_active {
@@ -46,7 +53,7 @@ body {
 
 .b-left-arrow, .b-right-arrow {
 	position: absolute;
-	top:50%;
+	top: 50%;
 	display: none;
 	width: 88px;
 	height: 88px;
@@ -67,7 +74,7 @@ body {
 	position: absolute;
 	width: 40px;
 	height: 18px;
-	background-color: #ddd;
+	background-color: #eee;
 }
 
 .b-left-arrow__up_corner {
@@ -91,7 +98,7 @@ body {
 }
 
 .rotate-cw {
-    -webkit-transform: rotate(55deg);
+    -webkit-transform: rotate(52deg);
     -moz-transform: rotate(55deg);
     -ms-transform: rotate(55deg);
     -o-transform: rotate(55deg);
@@ -99,7 +106,7 @@ body {
 }
 
 .rotate-acw {
-    -webkit-transform: rotate(-55deg);
+    -webkit-transform: rotate(-52deg);
     -moz-transform: rotate(-55deg);
     -ms-transform: rotate(-55deg);
     -o-transform: rotate(-55deg);
