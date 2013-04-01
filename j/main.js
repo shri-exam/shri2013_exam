@@ -77,14 +77,16 @@
 //Обработчики событий
       $left_arrow.click(function() {
             $selected_image.removeClass('b-gallery__image_active');
-            if (id > 0 ) --id;
-            loadImg(id,size);
+            if (id > 0 ) {
+                loadImg(--id, size);  
+            }
       });
 //
       $right_arrow.click(function() {
             $selected_image.removeClass('b-gallery__image_active');
-            if (id < last_image-1) ++id;
-            loadImg(id,size);
+            if (id < last_image-1) {
+                loadImg(++id, size);
+            }    
       });
 //
       $(window).resize(function(){
