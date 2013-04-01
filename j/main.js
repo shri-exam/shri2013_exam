@@ -1,13 +1,19 @@
 (function($) {
 
 //Init variables
-      var id = 0, image ='', size = '', last_image;
-      var url = 'http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?';
-      var screen_height = window.screen.availHeight;
-      var size_suffix = {'XL': '800', 'L': '500', 'M':'300', 'S':'150', 'XS': '100', 'XXS': '75', 'XXXS': '50'};
-      var $slideshow = $('.b-slideshow'), $gallery = $('.b-gallery'), $gallery_wrapper = $('.b-gallery__wrapper');
-      var $left_arrow = $('.b-left-arrow'), $right_arrow = $('.b-right-arrow');
-      var $selected_image = '', $slideshow_image = '';
+      var id = 0,
+      image,
+      image_in_page,
+      url = 'http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?',
+      screen_height = window.screen.availHeight,
+      size_suffix = {'XL': '800', 'L': '500', 'M':'300', 'S':'150', 'XS': '100', 'XXS': '75', 'XXXS': '50'},
+      $slideshow = $('.b-slideshow'),
+      $gallery = $('.b-gallery'),
+      $gallery_wrapper = $('.b-gallery__wrapper'),
+      $left_arrow = $('.b-left-arrow'),
+      $right_arrow = $('.b-right-arrow'),
+      $selected_image,
+      $slideshow_image;
 //
       $.extend($.easing,
       {
@@ -19,16 +25,16 @@
 
 //Yandex API
       function loadGallery(url) {
-            $.getJSON(url, function(root) {
-                  image = root.entries;
+            $.getJSON(url, function(data) {
+                  image = data.entries;
             }).done(function() {
               var inner = '';
                 $.each(image,function (i, val) {
                   inner += '<a href="#"><img class="b-gallery__image" src="' + image[i].img.XXS.href + '" alt="" /></a>';
                 });
 
-                  last_image = image.length - 1;
-                  $gallery_wrapper.append(inner).css('width', last_image*96);
+                  image_in_page = image.length - 1;
+                  $gallery_wrapper.append(inner).css('width', image_in_page*96);
                   loadImg(id, size);
             });
       };
@@ -47,7 +53,6 @@
                 $slideshow.fadeIn();
                 resizeimage();
             });
-
                 $selected_image = $('.b-gallery__image').eq(id);
                 $selected_image.addClass('b-gallery__image_active');
                 return dfd.promise();
@@ -71,7 +76,7 @@
             var calc_size = $.map(size_suffix, function(value,index){
                 return (value > screen_height) ? index : null; 
             });
-            size = calc_size != "" ? calc_size : "XL";
+            return calc_size != '' ? calc_size : "XL";
       };
 
 //Обработчики событий
@@ -84,7 +89,7 @@
 //
       $right_arrow.click(function() {
             $selected_image.removeClass('b-gallery__image_active');
-            if (id < last_image-1) {
+            if (id < image_in_page-1) {
                 loadImg(++id, size);
             }    
       });
@@ -94,7 +99,7 @@
       })
       .mouseenter(function(){
             if (id > 0)  showbutton($left_arrow);
-            if (id < last_image-1) showbutton($right_arrow);
+            if (id < image_in_page-1) showbutton($right_arrow);
       })
       .mouseleave(function(){
             $left_arrow.hide();
@@ -115,14 +120,14 @@
 //
       $gallery.bind('mousewheel', function(event, delta) {
         var visible_offset = $gallery_wrapper.width() - $gallery.width();
-            $gallery_wrapper.animate({'left': '+=' + delta * 96}, { duration: 75, easing: 'easeOutCubic', step: function(now, obj){
+            $gallery_wrapper.animate({'left': '+=' + delta * 96}, { duration: 75, easing: 'easeOutCubic', step: function(now, obj) {
                 if (obj.end > 0) obj.end = '0';
                 else if (obj.end  < -visible_offset) obj.end = obj.start;
             }});
       });
 
 //
-      calcImageSize(size_suffix, screen_height);
+      var size = calcImageSize(size_suffix, screen_height);
       loadGallery(url);
 
 })(jQuery);
