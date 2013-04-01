@@ -6,7 +6,7 @@
       image_in_page,
       url = 'http://api-fotki.yandex.ru/api/users/aig1001/album/63684/photos/?format=json&callback=?',
       screen_height = window.screen.availHeight,
-      size_suffix = {'XL': '800', 'L': '500', 'M':'300', 'S':'150', 'XS': '100', 'XXS': '75', 'XXXS': '50'},
+      size_suffix = {'XL': '800', 'L': '500', 'M' :'300', 'S' :'150', 'XS' : '100', 'XXS' : '75', 'XXXS' : '50'},
       $slideshow = $('.b-slideshow'),
       $gallery = $('.b-gallery'),
       $gallery_wrapper = $('.b-gallery__wrapper'),
@@ -67,10 +67,16 @@
             $slideshow.css({'top': (vp_height - zoom_height)/2 +'px', 'left': (vp_width - zoom_width)/2 +'px'});
       }
 //
-      function showbutton(obj) {
-            obj.css({'top': ($(window).height() - obj.height())/2 +'px'})
-            .show();
-      };
+      function button() {
+            this.show = function(obj) {
+                obj.css({'top': ($(window).height() - obj.height())/2 +'px'})
+                .fadeIn();
+            }
+            
+            this.hide = function(obj) {                
+                obj.fadeOut();                
+            }  
+      }
 //
       function calcImageSize(size_suffix, screen_height) {
             var calc_size = $.map(size_suffix, function(value,index){
@@ -94,16 +100,19 @@
             }    
       });
 //
+      $(document).mouseenter(function() {
+            var btn = new button();
+            if (id > 0)  btn.show($left_arrow);
+            if (id < image_in_page-1) btn.show($right_arrow);
+      })
+      .mouseleave(function() {
+            var btn = new button();
+            btn.hide($left_arrow);
+            btn.hide($right_arrow);
+      });
+//
       $(window).resize(function(){
             resizeimage();
-      })
-      .mouseenter(function(){
-            if (id > 0)  showbutton($left_arrow);
-            if (id < image_in_page-1) showbutton($right_arrow);
-      })
-      .mouseleave(function(){
-            $left_arrow.hide();
-            $right_arrow.hide();
       })
       .mousemove(function(e){
             $bottom = e.pageY;

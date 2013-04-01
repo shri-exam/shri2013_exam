@@ -8,7 +8,6 @@ body {
 }
 
 .b-slideshow__image {
-	min-height: 300px;
 }
 
 .b-gallery {
@@ -63,11 +62,11 @@ body {
 }
 
 .b-left-arrow {
-	left: 0;
+	left: 30px;
 }
 
 .b-right-arrow{
-	right: 0;
+	right: 30px;
 }
 
 .b-left-arrow__up_corner, .b-left-arrow__bottom_corner,.b-right-arrow__up_corner, .b-right-arrow__bottom_corner {
