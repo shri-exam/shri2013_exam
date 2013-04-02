@@ -43,6 +43,7 @@ body {
 	width: 75px;
 	height: 75px;
 	vertical-align: middle;
+	border: none;
 }
 
 .b-gallery__image_active {
