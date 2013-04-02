@@ -66,7 +66,7 @@
 
                 if (history_support) {
                     var state = {'id' : id};
-                    history.replaceState(state,'',query);
+                    history.pushState(state,'',query);
                 }
                 else {
                     var hash;
