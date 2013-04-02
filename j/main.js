@@ -40,20 +40,13 @@
             }
 //парсим URL
             this.getURL = function(history_support) {
-                if (history_support) {
                     var url = $(location).attr('href'),
-                        regex = /[?&]([^=#]+)=([^&#]*)/g;
-                }
-                else {
-                    var url = $(location).attr('hash');
-                        regex = /[#&]([^=#]+)=([^&#]*)/g;
-                }  
-                var match, params = {};
+                        regex = /[?&]([^=#]+)=([^&#]*)/g,
+                        match, params = {};
 
                 while (match = regex.exec(url)) {
                     params[match[1]] = match[2];
                 }
-
                 return (params.hasOwnProperty('id')) ? params.id : 0;
             }
 
@@ -69,13 +62,13 @@
                     history.pushState(state,'', url);
                 }
                 else {
-                    var hash;
+                    $(location).attr('hash', query);
                 }
             }
 //
             this.init = function() {  
                   var history_support = this.featureDetect();
-                  id = this.getURL(history_support);
+                  id = this.getURL(history_support);                  
                   return history_support;
             }
       }
