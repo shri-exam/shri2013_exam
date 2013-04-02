@@ -39,7 +39,7 @@
                 return html5history;
             }
 //парсим URL
-            this.getURL = function() {
+            this.getURL = function(history_support) {
                 if (history_support) {
                     var url = $(location).attr('href'),
                         regex = /[?&]([^=#]+)=([^&#]*)/g;
@@ -61,12 +61,12 @@
 //если history поддерживается, заменяем url
 //если history не поддерживается, пишем в hash
             this.setURL = function(history_support, id) {
-                var url = $(location).attr('href');
-                var query = '/?id=' + id;
+                var query = '?id=' + id;
+                var url = $(location).attr('href').split("?")[0] + query;
 
                 if (history_support) {
                     var state = {'id' : id};
-                    history.pushState(state,'',query);
+                    history.pushState(state,'', url);
                 }
                 else {
                     var hash;
@@ -74,8 +74,9 @@
             }
 //
             this.init = function() {  
-                  history_support = this.featureDetect();
-                  id = this.getURL();
+                  var history_support = this.featureDetect();
+                  id = this.getURL(history_support);
+                  return history_support;
             }
       }
 
@@ -120,7 +121,7 @@
             $slideshow_image = $('.b-slideshow__image');
             $slideshow_image.load(function () {
             var his = new HistoryAPI;
-                his.setURL(id);
+                his.setURL(his_support, id);
                 dfd.resolve(id);
                 $slideshow.fadeIn();
                 resizeImage();
@@ -237,7 +238,7 @@
 
 //
       var his = new HistoryAPI;
-          his.init();
+      var his_support = his.init();
 
       var size = calcImageSize(size_suffix, screen_height);
       loadAlbum(url)
