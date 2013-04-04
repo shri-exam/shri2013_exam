@@ -1,4 +1,4 @@
-shri-exam.github.com/shri2013_exam/
+http://shri-exam.github.com/shri2013_exam/
 ========
 
 Для разработчиков интерфейсов
